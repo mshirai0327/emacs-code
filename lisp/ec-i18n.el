@@ -24,22 +24,55 @@
   (when current-input-method
     (deactivate-input-method)))
 
+(defun ec-quail-katakana-all ()
+  "Convert the entire active Quail composition to Katakana."
+  (interactive)
+  (setq quail-translating nil)
+  (let ((start (overlay-start quail-conv-overlay))
+        (end (overlay-end quail-conv-overlay)))
+    (japanese-katakana-region start end)
+    (setq quail-conversion-str
+          (buffer-substring start end))))
+
+(defun ec-kkc-katakana-all ()
+  "Convert the entire active KKC composition to Katakana."
+  (interactive)
+  (let ((length (length kkc-current-key)))
+    (setq kkc-length-head length
+          kkc-length-converted length)
+    (setcar kkc-current-conversions -1)
+    (kkc-update-conversion 'all)))
+
 (defun ec-configure-japanese-input-keys ()
   "Configure keys used while Japanese text is still being composed."
-  (define-key quail-translation-keymap
-              (kbd "<muhenkan>")
-              #'quail-japanese-toggle-kana))
+  (let ((map (nth 5 (quail-package "japanese"))))
+    (dolist (key '("<muhenkan>" "<non-convert>"))
+      (define-key map (kbd key) #'ec-quail-katakana-all))))
+
+(defun ec-configure-kana-kanji-conversion-keys ()
+  "Configure arrow keys used during Kana-Kanji conversion."
+  (define-key kkc-keymap (kbd "<left>") #'kkc-shorter)
+  (define-key kkc-keymap (kbd "<right>") #'kkc-longer)
+  (define-key kkc-keymap (kbd "<up>") #'kkc-prev)
+  (define-key kkc-keymap (kbd "<down>") #'kkc-next)
+  (dolist (key '("<muhenkan>" "<non-convert>"))
+    (define-key kkc-keymap (kbd key) #'ec-kkc-katakana-all)))
 
 ;; Match the user's Windows IME key layout inside Emacs.  These control
 ;; Emacs' own input method; Windows and Emacs do not share IME state.
 (global-set-key (kbd "<zenkaku-hankaku>") #'toggle-input-method)
-(global-set-key (kbd "<muhenkan>") #'ec-disable-input-method)
-(global-set-key (kbd "<henkan>") #'ec-enable-japanese-input)
+(dolist (key '("<muhenkan>" "<non-convert>"))
+  (global-set-key (kbd key) #'ec-disable-input-method))
+(dolist (key '("<henkan>" "<henkan-mode>" "<convert>"))
+  (global-set-key (kbd key) #'ec-enable-japanese-input))
 
 ;; `quail/japanese' has no feature to `require', so configure its transient
 ;; translation keymap after the input method file is loaded on first use.
 (with-eval-after-load "quail/japanese"
   (ec-configure-japanese-input-keys))
+
+(with-eval-after-load 'kkc
+  (ec-configure-kana-kanji-conversion-keys))
 
 (defconst ec-japanese-font-candidates
   '("Noto Sans CJK JP"

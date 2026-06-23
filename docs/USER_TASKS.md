@@ -168,3 +168,9 @@ make check
 ```
 
 Then record what changed here.
+
+## user memo
+
+色味をvscodeに
+タブ分割をvscodeに
+複数repo
