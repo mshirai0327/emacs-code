@@ -75,12 +75,15 @@ EC_NO_PACKAGE_INSTALL=1 emacs --batch -l init.el
 
 最初の優先順位:
 
-1. 検索、移動、戻るを安定させる
-2. Go/TypeScript の LSP を安定させる
-3. tab-bar で project/work context を切り替える
-4. shell/AI/DB を補助 buffer として配置する
-5. 必要になったものだけ Elisp で小さく拡張する
+1. `embodied-reflecta` 系 project で TypeScript/Eglot workflow を検証する
+2. VS Code に近い theme を整える
+3. Eglot/xref と Consult を使った IntelliJ 風 Navigate popup を作る
+4. 下 terminal と移動可能な左 Project/Git tool area を構築する
+5. Windows shortcut から WSL GUI Emacs を起動する
+6. tab-bar で複数 project/work context を切り替える
+7. 必要になったものだけ Elisp で小さく拡張する
 
 DB UI は IntelliJ/DataGrip の方が強い領域なので、最初から完全再現しません。必要になった時点で `sql-mode` や外部 CLI 連携を追加します。
 
 既存の Emacs IDE 化事例と流用判断は [IDE_REUSE_RESEARCH.md](IDE_REUSE_RESEARCH.md) を参照します。
+具体的な実装順と完了条件は [ROADMAP.md](ROADMAP.md) を参照します。

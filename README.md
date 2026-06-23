@@ -11,7 +11,7 @@ Emacs使いにはきっと邪道な挑戦であろうが、Emacs からVScodeな
 
 ## 概要
 
-WSL 上の Go/TypeScript 開発を前提にした個人用 Emacs 設定プロジェクトです。
+WSL 上の TypeScript 開発を中心に、Go にも対応する個人用 Emacs 設定プロジェクトです。
 
 狙いは VS Code や IntelliJ を完全に複製することではなく、次の作業モデルを Emacs Lisp で育てられる状態にすることです。
 
@@ -50,7 +50,7 @@ emacs &
 
 最初の起動時は MELPA / GNU ELPA からパッケージを取得します。
 
-## User-Dependent Setup
+## Current Environment
 
 次の作業はユーザー環境に依存するため、このリポジトリからは自動実行しません。
 
@@ -60,7 +60,9 @@ emacs &
 - Windows native Emacs との併用
 - SSH/GPG/Git credential の設定
 
-残タスクの状態管理は [docs/USER_TASKS.md](docs/USER_TASKS.md)、WSL 向けの具体手順は [docs/SETUP_WSL.md](docs/SETUP_WSL.md) を見てください。
+WSL の初期セットアップは完了しています。現在の環境状態は
+[docs/USER_TASKS.md](docs/USER_TASKS.md)、今後の実装順は
+[docs/ROADMAP.md](docs/ROADMAP.md) を見てください。
 
 ## What Is Included
 
@@ -76,6 +78,7 @@ emacs &
 - `lisp/ec-terminal.el`: project root で開く shell/eshell
 
 GUI として目指す体験は [docs/GUI_TARGET.md](docs/GUI_TARGET.md) にあります。
+今後のロードマップは [docs/ROADMAP.md](docs/ROADMAP.md) にあります。
 設計メモは [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)、キー一覧は [docs/KEYMAP.md](docs/KEYMAP.md) にあります。
 既存の Emacs IDE 化事例と、この repo での流用/自作方針は [docs/IDE_REUSE_RESEARCH.md](docs/IDE_REUSE_RESEARCH.md) にまとめています。
 日本語表示の前提と確認方法は [docs/JAPANESE_TEXT.md](docs/JAPANESE_TEXT.md) にあります。

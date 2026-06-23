@@ -6,8 +6,10 @@
 
 - Windows デスクトップ上に GUI アプリとして Emacs を表示する
 - WSL 内の repo / Git / Go / Node / language server をそのまま使う
-- VS Code / IntelliJ のように、左 project tree、中央 editor、下 terminal、右 auxiliary panel を構成できるようにする
+- VS Code / IntelliJ のように、左 Project/Git tool area、中央 editor、下 terminal を構成できるようにする
+- Project/Git tool area は設定または command で左右へ移動できるようにする
 - キーボード中心で Search Everywhere、Go to Definition、Find Usages、Git、terminal、tab/work-context を操作する
+- IntelliJ の `Ctrl+N` のように、workspace symbol を中央の floating window から検索する
 
 ## Why Commands Still Appear
 
@@ -36,7 +38,7 @@ emacs -nw
 Windows native Emacs ではなく WSL 側 GUI Emacs を最初に使う理由:
 
 - 開発 repo が WSL filesystem にある
-- Go/Node/gopls/typescript-language-server も WSL 側にある
+- Node/typescript-language-server と Go/gopls も WSL 側にある
 - Git や shell も WSL 側で完結する
 - Windows native Emacs から WSL repo を触ると path/toolchain/LSP の境界が複雑になる
 
@@ -48,17 +50,21 @@ Windows native Emacs ではなく WSL 側 GUI Emacs を最初に使う理由:
 
 できているもの:
 
-- GUI Emacs 起動前提の setup docs
+- WSLg 上での GUI Emacs 起動
 - LSP/search/Git/completion/tab の基礎設定
 - IntelliJ 風 keymap の入口
 - display-buffer による下/右 panel の初期 policy
 
 まだ不足しているもの:
 
+- `embodied-reflecta` 系 project での TypeScript/Eglot workflow 確認
+- VS Code に近い theme
+- IntelliJ 風の floating Navigate popup
 - VS Code の Explorer 相当の左 project tree
 - 下部 terminal panel の完成度
-- 右側 auxiliary panel の具体機能
+- 左右へ移動可能な Project/Git tool area
 - project tab ごとの layout bootstrap command
+- Windows shortcut からの WSL GUI Emacs 起動
 - GUI screenshot / user journey docs
 
-短期的には、Treemacs と layout command を追加して「見た目にも VS Code/IntelliJ 的」と分かる状態に進めます。
+具体的な実装順は [ROADMAP.md](ROADMAP.md) で管理します。

@@ -16,9 +16,9 @@
 | Git | Done | `/usr/bin/git` |
 | ripgrep | Done | `rg` is available |
 | Go | Done | `/usr/bin/go` |
-| gopls | Done | `/home/mizuho/go/bin/gopls` |
+| gopls | Installed; validation deferred | `/home/mizuho/go/bin/gopls`, version `v0.22.0`; no current personal Go project |
 | Node/npm | Done | nvm managed Node/npm are available |
-| TypeScript LSP | Done | `typescript-language-server` is available |
+| TypeScript LSP | Installed; workflow validation pending | `typescript-language-server 5.3.0` |
 | Emacs GUI | Done | `/usr/bin/emacs`; GUI confirmed via `window-system => x` |
 | fd/fdfind | Done | `/usr/bin/fdfind` |
 | Config symlink | Done | `~/.config/emacs -> /home/mizuho/develop/emacs-code` |
@@ -144,6 +144,47 @@ bash scripts/doctor.sh
 
 Current result: `doctor.sh` detects a Noto CJK Japanese font.
 
+## Pending Workflow Validation
+
+### 1. Validate TypeScript In A Real Project
+
+Owner: user and Codex
+
+Status: pending
+
+The TypeScript language server and Eglot configuration are present. The
+remaining work is to validate the complete editing workflow in
+`embodied-reflecta` or `embodied-reflecta-gpt`:
+
+- automatic Eglot startup
+- go to definition and back
+- find references
+- rename
+- diagnostics
+- format/import behavior
+
+This is tracked as Phase 0 in [ROADMAP.md](ROADMAP.md).
+
+### 2. Validate gopls When A Go Project Is Available
+
+Owner: user and Codex
+
+Status: deferred
+
+`gopls v0.22.0` and its Eglot configuration are installed. Since current
+personal development is TypeScript-centered, full Go workflow validation is
+deferred until there is a real Go project to test.
+
+### 3. Decide Whether `C-n` Should Override Next-Line
+
+Owner: user
+
+Status: deferred until Navigate popup is implemented
+
+The reliable binding will be `C-c i n`. IntelliJ-compatible mode can bind
+`C-n` to the Navigate popup, but this replaces the standard Emacs next-line
+binding. The choice will remain configurable.
+
 ## Optional User Decisions
 
 These are not required for the first usable Emacs setup.
@@ -151,7 +192,7 @@ These are not required for the first usable Emacs setup.
 | Decision | Default | When to revisit |
 | --- | --- | --- |
 | Windows native Emacs | Skip | after WSL GUI Emacs is stable |
-| Replace VS Code workflow | Do not replace | after Go/TypeScript navigation feels reliable |
+| Replace VS Code workflow | Do not replace | after TypeScript navigation and layout feel reliable |
 | DB UI inside Emacs | Skip | when a concrete DB workflow is needed |
 | AI terminal layout | Use shell/eshell first | after base tab/window layout is comfortable |
 | npm global policy | Keep current nvm setup | if global packages become hard to reproduce |
@@ -168,9 +209,3 @@ make check
 ```
 
 Then record what changed here.
-
-## user memo
-
-色味をvscodeに
-タブ分割をvscodeに
-複数repo
