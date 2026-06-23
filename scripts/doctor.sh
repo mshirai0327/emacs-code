@@ -51,6 +51,19 @@ check_go_tool() {
   fi
 }
 
+check_japanese_font() {
+  if ! command -v fc-list >/dev/null 2>&1; then
+    missing_recommended "fontconfig fc-list"
+    return
+  fi
+
+  if fc-list :lang=ja family | grep -q .; then
+    ok "Japanese font: $(fc-list :lang=ja family | head -n 1)"
+  else
+    missing_recommended "Japanese font (suggested package: fonts-noto-cjk)"
+  fi
+}
+
 printf '== Platform ==\n'
 if grep -qi microsoft /proc/version 2>/dev/null; then
   ok "WSL detected"
@@ -84,6 +97,9 @@ else
   missing_recommended "fd or fdfind"
 fi
 
+printf '\n== GUI and Japanese text ==\n'
+check_japanese_font
+
 printf '\n== Language toolchains ==\n'
 check_recommended go
 check_go_tool gopls
@@ -94,6 +110,7 @@ check_recommended typescript-language-server
 printf '\n== Suggested install commands ==\n'
 printf 'sudo apt update\n'
 printf 'sudo apt install emacs-gtk git ripgrep fd-find\n'
+printf 'sudo apt install fonts-noto-cjk\n'
 printf 'go install golang.org/x/tools/gopls@latest\n'
 printf 'npm install -g typescript typescript-language-server\n'
 

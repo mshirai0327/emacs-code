@@ -3,6 +3,7 @@
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
 (require 'ec-core)
+(require 'ec-i18n)
 (require 'ec-ui)
 (require 'ec-completion)
 (require 'ec-navigation)

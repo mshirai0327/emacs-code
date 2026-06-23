@@ -1,7 +1,11 @@
 
 # emacs-code
 
-## goal of pj
+## Goal of This Project
+
+VSCode のようなUI/操作性でEmacsを使いたい
+
+## 概要
 
 WSL 上の Go/TypeScript 開発を前提にした個人用 Emacs 設定プロジェクトです。
 

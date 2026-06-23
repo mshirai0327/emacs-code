@@ -2,7 +2,7 @@
 
 ## Working Model
 
-この repo は Emacs 本体改造ではなく、個人用 Emacs distribution として育てます。
+この repo は Emacs 本体改造ではなく、GUI-first な個人用 Emacs distribution として育てます。terminal/CLI Emacs は主対象ではありません。
 
 基本モデル:
 

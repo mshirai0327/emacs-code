@@ -1,6 +1,6 @@
 # WSL Setup
 
-この構成は、Windows 上で WSL2 repo を使い、GUI は WSLg で Emacs を表示する前提です。
+この構成は、terminal/CLI Emacs ではなく GUI Emacs を使う前提です。Windows 上で WSL2 repo を使い、GUI は WSLg で Emacs を表示します。
 
 ## 1. Check Current State
 
@@ -62,6 +62,7 @@ emacs &
 ```
 
 WSLg が有効なら Windows 側に GUI ウィンドウが出ます。
+`emacs -nw` は terminal 内 Emacs なので、このプロジェクトの主対象ではありません。
 
 ## 6. First Project Check
 

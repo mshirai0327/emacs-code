@@ -6,7 +6,9 @@
 
 ## Current Status
 
-作成時点の `bash scripts/doctor.sh` では、次の状態です。
+最終確認: 2026-06-23 JST
+
+`make check` と `bash scripts/doctor.sh` は成功しています。
 
 | Area | Status | Notes |
 | --- | --- | --- |
@@ -17,13 +19,14 @@
 | gopls | Done | `/home/mizuho/go/bin/gopls` |
 | Node/npm | Done | nvm managed Node/npm are available |
 | TypeScript LSP | Done | `typescript-language-server` is available |
-| Emacs GUI | Pending user action | `emacs` command is missing |
-| fd/fdfind | Pending user action | recommended for faster file finding |
-| Config symlink | Pending user action | changes `~/.config/emacs` |
-| First Emacs launch | Pending Emacs install | downloads Emacs packages |
-| Batch check | Pending Emacs install | `make check` needs `emacs` |
+| Emacs GUI | Done | `/usr/bin/emacs`; GUI confirmed via `window-system => x` |
+| fd/fdfind | Done | `/usr/bin/fdfind` |
+| Config symlink | Done | `~/.config/emacs -> /home/mizuho/develop/emacs-code` |
+| First Emacs launch | Done | GUI window launched through WSLg |
+| Batch check | Done | `make check` loads `init.el` successfully |
+| Japanese font | Done | Noto CJK font detected |
 
-## Required User Actions
+## Completed User Actions
 
 ### 1. Install GUI Emacs and fd-find
 
@@ -31,7 +34,9 @@ Owner: user
 
 Reason: requires `sudo` and changes OS packages.
 
-Run in WSL:
+Status: done
+
+Command used in WSL:
 
 ```sh
 sudo apt update
@@ -46,7 +51,7 @@ fdfind --version
 bash scripts/doctor.sh
 ```
 
-Expected result: `doctor.sh` no longer reports `MISSING emacs`. `fd` or `fdfind` should also be detected.
+Current result: `doctor.sh` no longer reports `MISSING emacs`. `fdfind` is detected.
 
 ### 2. Decide Whether to Link This Repo as `~/.config/emacs`
 
@@ -54,19 +59,21 @@ Owner: user
 
 Reason: may overwrite or replace existing personal Emacs configuration.
 
+Status: done
+
 Check first:
 
 ```sh
 ls -la ~/.config/emacs ~/.emacs.d 2>/dev/null
 ```
 
-If there is no existing `~/.config/emacs`:
+If re-running on a clean machine with no existing `~/.config/emacs`:
 
 ```sh
 bash scripts/link-config.sh
 ```
 
-If there is an existing `~/.config/emacs` and it is okay to move it aside:
+If re-running on a machine with an existing `~/.config/emacs` and it is okay to move it aside:
 
 ```sh
 bash scripts/link-config.sh --backup
@@ -78,7 +85,7 @@ Verification:
 ls -la ~/.config/emacs
 ```
 
-Expected result: `~/.config/emacs` points to this repository.
+Current result: `~/.config/emacs` points to this repository.
 
 ### 3. Launch Emacs Once
 
@@ -86,19 +93,23 @@ Owner: user
 
 Reason: starts a GUI app and downloads Emacs packages on first launch.
 
+Status: done
+
 Run:
 
 ```sh
 emacs &
 ```
 
-Expected result: a GUI Emacs window appears through WSLg, and the first launch downloads packages from GNU ELPA / NonGNU ELPA / MELPA.
+Current result: a GUI Emacs window appears through WSLg.
 
 ### 4. Run Local Checks After First Launch
 
 Owner: Codex or user
 
 Reason: after Emacs and packages exist, the config can be loaded in batch mode.
+
+Status: done
 
 Run:
 
@@ -107,7 +118,31 @@ make doctor
 make check
 ```
 
-Expected result: `make doctor` exits successfully or only reports intentional optional gaps, and `make check` loads `init.el` without errors.
+Current result: `make check` loads `init.el` without errors. `make doctor` reports all checked tools as present.
+
+### 5. Install Japanese Fonts
+
+Owner: user
+
+Reason: requires `sudo` and changes OS packages.
+
+Status: done
+
+Run in WSL:
+
+```sh
+sudo apt update
+sudo apt install fonts-noto-cjk
+```
+
+Verification:
+
+```sh
+fc-list :lang=ja family | head
+bash scripts/doctor.sh
+```
+
+Current result: `doctor.sh` detects a Noto CJK Japanese font.
 
 ## Optional User Decisions
 
