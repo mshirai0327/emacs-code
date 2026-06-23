@@ -1,9 +1,13 @@
+
 # emacs-code
+
+## goal of pj
 
 WSL 上の Go/TypeScript 開発を前提にした個人用 Emacs 設定プロジェクトです。
 
 狙いは VS Code や IntelliJ を完全に複製することではなく、次の作業モデルを Emacs Lisp で育てられる状態にすることです。
 
+- terminal/CLI Emacs ではなく、GUI Emacs を主対象にする
 - WSL 内の repo / Git / Go / Node toolchain をそのまま使う
 - Windows 側には WSLg の GUI Emacs を出す
 - IntelliJ 風の「検索・移動・戻る」をキーボード中心で使う
@@ -63,8 +67,10 @@ emacs &
 - `lisp/ec-keymap.el`: IntelliJ 風の移動・検索キー
 - `lisp/ec-terminal.el`: project root で開く shell/eshell
 
+GUI として目指す体験は [docs/GUI_TARGET.md](docs/GUI_TARGET.md) にあります。
 設計メモは [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)、キー一覧は [docs/KEYMAP.md](docs/KEYMAP.md) にあります。
 既存の Emacs IDE 化事例と、この repo での流用/自作方針は [docs/IDE_REUSE_RESEARCH.md](docs/IDE_REUSE_RESEARCH.md) にまとめています。
+日本語表示の前提と確認方法は [docs/JAPANESE_TEXT.md](docs/JAPANESE_TEXT.md) にあります。
 
 ## Local Verification
 
