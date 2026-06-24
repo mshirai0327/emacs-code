@@ -53,6 +53,8 @@ Windows native Emacs ではなく WSL 側 GUI Emacs を最初に使う理由:
 - WSLg 上での GUI Emacs 起動
 - LSP/search/Git/completion/tab の基礎設定
 - IntelliJ 風 keymap の入口
+- Treemacs による左 project tree の入口
+- tab-line による VS Code 風 file tab の入口
 - display-buffer による下/右 panel の初期 policy
 
 まだ不足しているもの:
@@ -60,7 +62,6 @@ Windows native Emacs ではなく WSL 側 GUI Emacs を最初に使う理由:
 - `embodied-reflecta` 系 project での TypeScript/Eglot workflow 確認
 - VS Code に近い theme
 - IntelliJ 風の floating Navigate popup
-- VS Code の Explorer 相当の左 project tree
 - 下部 terminal panel の完成度
 - 左右へ移動可能な Project/Git tool area
 - project tab ごとの layout bootstrap command

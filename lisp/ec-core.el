@@ -28,6 +28,7 @@
     embark
     corfu
     magit
+    treemacs
     which-key
     go-mode
     markdown-mode

@@ -110,11 +110,14 @@ Done when:
 Status: planned
 
 画面構成を一度に再現できる project layout command を作ります。
+Treemacs による左 project tree の初期入口は `C-c i x` で追加済みです。
+この phase では、terminal、Git、tool area 切り替えまで含めた標準レイアウト
+として仕上げます。
 
 Tasks:
 
 - 下部 terminal panel を安定させる
-- 左側に project tree を導入する
+- 左側 project tree を標準レイアウトへ組み込む
 - tool area で project tree と Magit status を切り替えられるようにする
 - tool area の side を左または右へ変更できる設定と command を作る
 - editor を開いても side window が意図せず消えないようにする

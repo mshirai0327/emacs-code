@@ -30,6 +30,7 @@
 
 (define-key ec-intellij-map (kbd "f") #'project-find-file)
 (define-key ec-intellij-map (kbd "s") #'consult-ripgrep)
+(define-key ec-intellij-map (kbd "x") #'ec-open-project-tree)
 (define-key ec-intellij-map (kbd "e") #'consult-buffer)
 (define-key ec-intellij-map (kbd "m") #'consult-imenu)
 (define-key ec-intellij-map (kbd "p") #'project-switch-project)
@@ -44,6 +45,12 @@
 (define-key ec-tab-map (kbd "k") #'tab-close)
 (define-key ec-tab-map (kbd "r") #'ec-rename-tab-to-project)
 (define-key ec-tab-map (kbd "p") #'ec-new-project-tab)
+
+(define-prefix-command 'ec-buffer-tab-map)
+(define-key ec-intellij-map (kbd "b") 'ec-buffer-tab-map)
+(define-key ec-buffer-tab-map (kbd "n") #'tab-line-switch-to-next-tab)
+(define-key ec-buffer-tab-map (kbd "p") #'tab-line-switch-to-prev-tab)
+(define-key ec-buffer-tab-map (kbd "k") #'tab-line-close-tab)
 
 ;; Optional Super bindings. Windows/WSLg may intercept some of these keys, so
 ;; `C-c i' remains the reliable prefix.
@@ -60,6 +67,9 @@
 (global-set-key (kbd "s-g") #'magit-status)
 (global-set-key (kbd "s-t") #'tab-new)
 (global-set-key (kbd "s-w") #'tab-close)
+(global-set-key (kbd "<C-tab>") #'tab-line-switch-to-next-tab)
+(global-set-key (kbd "<C-S-tab>") #'tab-line-switch-to-prev-tab)
+(global-set-key (kbd "<C-iso-lefttab>") #'tab-line-switch-to-prev-tab)
 
 (provide 'ec-keymap)
 ;;; ec-keymap.el ends here
