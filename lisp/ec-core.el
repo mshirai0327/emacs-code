@@ -29,6 +29,9 @@
     corfu
     magit
     treemacs
+    typescript-mode
+    vscode-dark-plus-theme
+    web-mode
     which-key
     go-mode
     markdown-mode
@@ -44,7 +47,14 @@
   "Install PACKAGE unless it is already available."
   (unless (package-installed-p package)
     (ec-refresh-package-contents-once)
-    (package-install package)))
+    (condition-case err
+        (package-install package)
+      (file-error
+       (message "Retrying package install for %S after refreshing metadata: %s"
+                package
+                (error-message-string err))
+       (package-refresh-contents)
+       (package-install package)))))
 
 (when ec-auto-install-packages
   (dolist (package ec-required-packages)

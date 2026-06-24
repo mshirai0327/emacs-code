@@ -1,5 +1,12 @@
 ;;; ec-prog.el --- Programming language setup -*- lexical-binding: t; -*-
 
+(defun ec-treesit-language-available-p (language)
+  "Return non-nil when tree-sitter LANGUAGE grammar is available."
+  (and (fboundp 'treesit-available-p)
+       (treesit-available-p)
+       (fboundp 'treesit-language-available-p)
+       (treesit-language-available-p language)))
+
 (defun ec-use-go-mode ()
   "Use tree-sitter Go mode when available, otherwise `go-mode'."
   (interactive)
@@ -11,7 +18,10 @@
   "Use the best available TypeScript mode."
   (interactive)
   (cond
-   ((fboundp 'typescript-ts-mode) (typescript-ts-mode))
+   ((and (fboundp 'typescript-ts-mode)
+         (ec-treesit-language-available-p 'typescript))
+    (typescript-ts-mode))
+   ((require 'typescript-mode nil t) (typescript-mode))
    ((fboundp 'typescript-mode) (typescript-mode))
    (t (js-mode))))
 
@@ -19,8 +29,14 @@
   "Use the best available TSX mode."
   (interactive)
   (cond
-   ((fboundp 'tsx-ts-mode) (tsx-ts-mode))
-   ((fboundp 'typescript-ts-mode) (typescript-ts-mode))
+   ((and (fboundp 'tsx-ts-mode)
+         (ec-treesit-language-available-p 'tsx))
+    (tsx-ts-mode))
+   ((require 'web-mode nil t) (web-mode))
+   ((and (fboundp 'typescript-ts-mode)
+         (ec-treesit-language-available-p 'typescript))
+    (typescript-ts-mode))
+   ((require 'typescript-mode nil t) (typescript-mode))
    ((fboundp 'js-jsx-mode) (js-jsx-mode))
    (t (js-mode))))
 
@@ -36,6 +52,7 @@
    (typescript-mode . eglot-ensure)
    (typescript-ts-mode . eglot-ensure)
    (tsx-ts-mode . eglot-ensure)
+   (web-mode . eglot-ensure)
    (js-mode . eglot-ensure)
    (js-ts-mode . eglot-ensure)
    (js-jsx-mode . eglot-ensure))
@@ -47,11 +64,24 @@
                '((go-mode go-ts-mode) . ("gopls")))
   (add-to-list 'eglot-server-programs
                '((typescript-mode typescript-ts-mode tsx-ts-mode
+                  (web-mode :language-id "typescriptreact")
                   js-mode js-ts-mode js-jsx-mode)
                  . ("typescript-language-server" "--stdio"))))
 
 (use-package go-mode
   :defer t)
+
+(use-package typescript-mode
+  :defer t
+  :custom
+  (typescript-indent-level 2))
+
+(use-package web-mode
+  :defer t
+  :custom
+  (web-mode-code-indent-offset 2)
+  (web-mode-css-indent-offset 2)
+  (web-mode-markup-indent-offset 2))
 
 (use-package markdown-mode
   :mode "\\.md\\'")
